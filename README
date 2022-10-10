@@ -1,0 +1,21 @@
+Используется БД Postgresql, Express, React, Nodejs
+
+Необходимо модифицировать ./server/config/database.json для доступа в БД
+
+Необходимо отдельно запустить сервер
+cd server
+npm install
+nodemon index.js
+
+Необходимо отдельно запустить клиент
+cd client
+npm install
+npm run start
+
+Для запуска миграций
+cd server
+npx db-migrate up --config config/database.json
+
+Порт клиента по умолчанию:3000
+Порт сервера по умолчанию:5000
+Порт БД по умолчанию:5432
