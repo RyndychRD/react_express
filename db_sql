@@ -1,0 +1,346 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+
+-- Started on 2022-10-11 10:49:33 +05
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3390 (class 1262 OID 16386)
+-- Name: db; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE db WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
+
+
+ALTER DATABASE db OWNER TO postgres;
+
+\connect db
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 5 (class 2615 OID 16388)
+-- Name: crud; Type: SCHEMA; Schema: -; Owner: root
+--
+
+CREATE SCHEMA crud;
+
+
+ALTER SCHEMA crud OWNER TO root;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 16538)
+-- Name: employees; Type: TABLE; Schema: crud; Owner: root
+--
+
+CREATE TABLE crud.employees (
+    id integer NOT NULL,
+    first_name character varying(100),
+    last_name character varying(100),
+    middle_name character varying(100),
+    subdivision_id integer,
+    position_id integer,
+    phone_num character varying(30)
+);
+
+
+ALTER TABLE crud.employees OWNER TO root;
+
+--
+-- TOC entry 216 (class 1259 OID 16537)
+-- Name: employees_id_seq; Type: SEQUENCE; Schema: crud; Owner: root
+--
+
+ALTER TABLE crud.employees ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME crud.employees_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 213 (class 1259 OID 16526)
+-- Name: positions; Type: TABLE; Schema: crud; Owner: root
+--
+
+CREATE TABLE crud.positions (
+    id integer NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE crud.positions OWNER TO root;
+
+--
+-- TOC entry 212 (class 1259 OID 16525)
+-- Name: positions_id_seq; Type: SEQUENCE; Schema: crud; Owner: root
+--
+
+ALTER TABLE crud.positions ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME crud.positions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 215 (class 1259 OID 16532)
+-- Name: subdivisions; Type: TABLE; Schema: crud; Owner: root
+--
+
+CREATE TABLE crud.subdivisions (
+    id integer NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE crud.subdivisions OWNER TO root;
+
+--
+-- TOC entry 214 (class 1259 OID 16531)
+-- Name: subdivisions_id_seq; Type: SEQUENCE; Schema: crud; Owner: root
+--
+
+ALTER TABLE crud.subdivisions ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME crud.subdivisions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 211 (class 1259 OID 16418)
+-- Name: migrations; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    run_on timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO root;
+
+--
+-- TOC entry 210 (class 1259 OID 16417)
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.migrations_id_seq OWNER TO root;
+
+--
+-- TOC entry 3392 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
+
+
+--
+-- TOC entry 3227 (class 2604 OID 16421)
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 3384 (class 0 OID 16538)
+-- Dependencies: 217
+-- Data for Name: employees; Type: TABLE DATA; Schema: crud; Owner: root
+--
+
+INSERT INTO crud.employees (id, first_name, last_name, middle_name, subdivision_id, position_id, phone_num) OVERRIDING SYSTEM VALUE VALUES (1, 'Иван', 'Иванов', 'Иванович', 1, 1, '89143215741');
+INSERT INTO crud.employees (id, first_name, last_name, middle_name, subdivision_id, position_id, phone_num) OVERRIDING SYSTEM VALUE VALUES (2, 'Петр', 'Петров', 'Петрович', 1, 2, '89146705464');
+INSERT INTO crud.employees (id, first_name, last_name, middle_name, subdivision_id, position_id, phone_num) OVERRIDING SYSTEM VALUE VALUES (3, 'Роман', 'Рындыч', 'Дмитриевич', 2, 1, '87056146966');
+
+
+--
+-- TOC entry 3380 (class 0 OID 16526)
+-- Dependencies: 213
+-- Data for Name: positions; Type: TABLE DATA; Schema: crud; Owner: root
+--
+
+INSERT INTO crud.positions (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'Бухгалтер');
+INSERT INTO crud.positions (id, name) OVERRIDING SYSTEM VALUE VALUES (2, 'Менеджер');
+INSERT INTO crud.positions (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'HR');
+
+
+--
+-- TOC entry 3382 (class 0 OID 16532)
+-- Dependencies: 215
+-- Data for Name: subdivisions; Type: TABLE DATA; Schema: crud; Owner: root
+--
+
+INSERT INTO crud.subdivisions (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'Отдел 1');
+INSERT INTO crud.subdivisions (id, name) OVERRIDING SYSTEM VALUE VALUES (2, 'Отдел 2');
+INSERT INTO crud.subdivisions (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'Отдел 3');
+
+
+--
+-- TOC entry 3378 (class 0 OID 16418)
+-- Dependencies: 211
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+INSERT INTO public.migrations (id, name, run_on) VALUES (2, '/20221010042233-initialize', '2022-10-10 09:37:37.365');
+INSERT INTO public.migrations (id, name, run_on) VALUES (23, '/20221010043828-initialize-position', '2022-10-11 01:52:53.231');
+INSERT INTO public.migrations (id, name, run_on) VALUES (24, '/20221010043906-initialize-subdivision', '2022-10-11 01:52:53.249');
+INSERT INTO public.migrations (id, name, run_on) VALUES (25, '/20221010043915-initialize-employees', '2022-10-11 01:52:53.262');
+INSERT INTO public.migrations (id, name, run_on) VALUES (26, '/20221010045205-seed-position', '2022-10-11 01:52:53.267');
+INSERT INTO public.migrations (id, name, run_on) VALUES (27, '/20221010045441-seed-subdivision', '2022-10-11 01:52:53.27');
+INSERT INTO public.migrations (id, name, run_on) VALUES (28, '/20221010045601-seed-employees', '2022-10-11 01:52:53.275');
+
+
+--
+-- TOC entry 3393 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: employees_id_seq; Type: SEQUENCE SET; Schema: crud; Owner: root
+--
+
+SELECT pg_catalog.setval('crud.employees_id_seq', 3, true);
+
+
+--
+-- TOC entry 3394 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: positions_id_seq; Type: SEQUENCE SET; Schema: crud; Owner: root
+--
+
+SELECT pg_catalog.setval('crud.positions_id_seq', 3, true);
+
+
+--
+-- TOC entry 3395 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: subdivisions_id_seq; Type: SEQUENCE SET; Schema: crud; Owner: root
+--
+
+SELECT pg_catalog.setval('crud.subdivisions_id_seq', 3, true);
+
+
+--
+-- TOC entry 3396 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 28, true);
+
+
+--
+-- TOC entry 3235 (class 2606 OID 16542)
+-- Name: employees employees_pkey; Type: CONSTRAINT; Schema: crud; Owner: root
+--
+
+ALTER TABLE ONLY crud.employees
+    ADD CONSTRAINT employees_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3231 (class 2606 OID 16530)
+-- Name: positions positions_pkey; Type: CONSTRAINT; Schema: crud; Owner: root
+--
+
+ALTER TABLE ONLY crud.positions
+    ADD CONSTRAINT positions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3233 (class 2606 OID 16536)
+-- Name: subdivisions subdivisions_pkey; Type: CONSTRAINT; Schema: crud; Owner: root
+--
+
+ALTER TABLE ONLY crud.subdivisions
+    ADD CONSTRAINT subdivisions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3229 (class 2606 OID 16423)
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3236 (class 2606 OID 16543)
+-- Name: employees fk_position_id; Type: FK CONSTRAINT; Schema: crud; Owner: root
+--
+
+ALTER TABLE ONLY crud.employees
+    ADD CONSTRAINT fk_position_id FOREIGN KEY (position_id) REFERENCES crud.positions(id);
+
+
+--
+-- TOC entry 3237 (class 2606 OID 16548)
+-- Name: employees fk_subdivision_id; Type: FK CONSTRAINT; Schema: crud; Owner: root
+--
+
+ALTER TABLE ONLY crud.employees
+    ADD CONSTRAINT fk_subdivision_id FOREIGN KEY (subdivision_id) REFERENCES crud.subdivisions(id);
+
+
+--
+-- TOC entry 3391 (class 0 OID 0)
+-- Dependencies: 3390
+-- Name: DATABASE db; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON DATABASE db TO root;
+
+
+-- Completed on 2022-10-11 10:49:33 +05
+
+--
+-- PostgreSQL database dump complete
+--
+
